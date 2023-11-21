@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import "./App.css";
 import Profile from './Profile';
-import user_icon from './person.png'
 
 const Homepage = () => {
   const [userID, setUserID] = useState([]);
