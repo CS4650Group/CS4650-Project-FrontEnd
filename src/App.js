@@ -12,9 +12,9 @@ const App = () => {
   <div className="App">
     <div className='select'>
       <Link to="/">Home</Link>
-      <h1></h1> 
+      <h1> </h1> 
       <Link to="/login">Login</Link>
-      <h1></h1>
+      <h1> </h1>
       <Link to="/post">BlogPage</Link>
     </div>
     
