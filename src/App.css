@@ -97,3 +97,13 @@ h1 {
   font-size: 19px;
   
 }
+
+.homepage img {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  margin: 0 0 ;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
