@@ -17,8 +17,6 @@ const App = () => {
       <h1> </h1>
       <Link to="/post">BlogPage</Link>
     </div>
-    
-    
 
     <Routes>
       <Route exact path="/" element={<Homepage />} />

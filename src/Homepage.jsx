@@ -1,5 +1,5 @@
-import React, { useState, useEffect} from 'react';
-import "./App.css";
+import React, { useState, useEffect } from 'react';
+import './App.css';
 import Profile from './Profile';
 
 const Homepage = () => {
@@ -10,22 +10,28 @@ const Homepage = () => {
   }, []);
 
   const getApi = async (userId) => {
-    const response = await fetch(`https://4650blog.azurewebsites.net/api/test_data?code=UrnRHfgAB2GyzDS3P1ghX5MLyV8vvPGuOBIkpAa1xnQ7AzFujFuhDA==`);
-    const data = await response.json();
+    try {
+      const response = await fetch('https://4650blog.azurewebsites.net/api/test_data?code=test');
+      if (response.ok) {
+        const data = await response.json();
+        console.log('API data:', data);
+          const newUserID = data.map((user) => ({
+            UserID: "John",
+            FirstName: user.FirstName,
+            LastName: user.LastName,
+            Username: user.Username,
+            Email: user.Email,
+            CreatedAt: user.CreatedAt,
+            LastLogin: user.LastLogin,
+          }));
+          setUserID(newUserID);
 
-    if (Array.isArray(data)) {
-      const newUserID = data.map(user => ({
-        UserID: user.UserID,
-        FirstName: user.FirstName,
-        LastName: user.LastName,
-        UserName: user.UserName,
-        Email: user.Email,
-        created_at: user.created_at,
-        last_login: user.last_login
-      }));
-
-      setUserID(newUserID); 
-    };
+      } else {
+        console.error('Fetch request failed:', response.status);
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
   };
 
 
@@ -34,11 +40,10 @@ const Homepage = () => {
       <h1>Home Screen</h1>
       <h1>Database Connection Test:</h1>
       <div>
-      {userID.map((user, index) => (
-        <Profile users={user} key={index} /> 
-      ))}
+        {userID.map((user, index) => (
+          <Profile users={user} key={index} />
+        ))}
       </div>
-      
     </div>
   );
 };

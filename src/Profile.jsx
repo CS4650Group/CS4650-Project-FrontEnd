@@ -4,13 +4,14 @@ const Profile = ({ users }) => {
     return (
       <div className="users">
       <h2>Profile: </h2>
-        <h1>UserID: {users.UserID}</h1>
-        <h1>{users.FirstName}</h1>
-        <h1>{users.LastName}</h1>
-        <h1>{users.UserName}</h1>
-        <h1>{users.Email}</h1>
-        <h1>{users.created_at}</h1>
-        <h1>{users.last_login}</h1>
+        <h2>UserID: {users.UserID}</h2>
+        <h2>First Name: {users.FirstName}</h2>
+        <h2>Last Name: {users.LastName}</h2>
+        <h2>Username: {users.Username}</h2>
+        <h2>Email: {users.Email}</h2>
+        <h2>Creation: {users.CreatedAt}</h2>
+        <h2>Last Login: {users.LastLogin}</h2>
+        <h2>- - - - - - - - - - - - - - - - - - - -</h2>
       </div>
     );
   };
