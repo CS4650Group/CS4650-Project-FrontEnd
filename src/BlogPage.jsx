@@ -1,5 +1,4 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import './Blog.css';
 
 const BlogPage = ({ pageID }) => {
