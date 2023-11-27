@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
 import Homepage from './Homepage';
 import Login from './Login';
 import BlogPage from './BlogPage';
+import ProfilePage from './ProfilePage';
 import "./App.css";
 
 
 const App = () => {
+  const [PageId, setPageId] = useState([]);
+  const [UserId, setUserId] = useState([]);
+
+
+  useEffect(() => {
+    setPageId(20);
+    setUserId(0);
+  }, []);
+  
   return (
     <Router>
   <div className="App">
@@ -16,12 +26,18 @@ const App = () => {
       <Link to="/login">Login</Link>
       <h1> </h1>
       <Link to="/post">BlogPage</Link>
+      <h1> </h1>
+      <Link to="/profile">Profile</Link>
     </div>
+
+    
+
 
     <Routes>
       <Route exact path="/" element={<Homepage />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/post" element={<BlogPage />} />
+      <Route path="/post" element={<BlogPage pageID={PageId} />} />
+      <Route path="/profile" element={<ProfilePage currentUserId={UserId} />} />
     </Routes>
   </div>
 </Router>

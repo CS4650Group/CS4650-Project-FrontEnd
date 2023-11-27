@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Profile from './Profile';
 
-const Homepage = () => {
+const ProfilePage = ({currentUserId}) => {
   const [userID, setUserID] = useState([]);
 
   useEffect(() => {
-    getApi();
-  }, []);
+    getApi(currentUserId);
+  }, [currentUserId]);
 
-  const getApi = async (userId) => {
+  const getApi = async (currentUserId) => {
     try {
       const response = await fetch('https://4650blog.azurewebsites.net/api/test_data?code=test');
       if (response.ok) {
         const data = await response.json();
         console.log('API data:', data);
           const newUserID = data.map((user) => ({
-            UserID: user.UserID,
+            UserID: currentUserId,
             FirstName: user.FirstName,
             LastName: user.LastName,
             Username: user.Username,
@@ -36,8 +36,8 @@ const Homepage = () => {
 
 
   return (
-    <div className="homepage">
-      <h1>Home Screen</h1>
+    <div className="ProfilePage">
+      <h1>Profile</h1>
       <h1>Database Connection Test:</h1>
       <div>
         {userID.map((user, index) => (
@@ -48,4 +48,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default ProfilePage;
