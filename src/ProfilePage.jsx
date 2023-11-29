@@ -2,30 +2,26 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Profile from './Profile';
 
-const ProfilePage = ({currentUserId}) => {
-  const [userID, setUserID] = useState([]);
+const ProfilePage = () => {
+  const [users, setUsers] = useState([]); // Initialize users state
 
   useEffect(() => {
-    getApi(currentUserId);
-  }, [currentUserId]);
+    getApi();
+  }, []);
 
-  const getApi = async (currentUserId) => {
+  const getApi = async () => {
     try {
-      const response = await fetch('https://4650blog.azurewebsites.net/api/test_data?code=test');
+      const response = await fetch('https://0cuq5fy7wl.execute-api.us-east-2.amazonaws.com/dev');
       if (response.ok) {
-        const data = await response.json();
-        console.log('API data:', data);
-          const newUserID = data.map((user) => ({
-            UserID: currentUserId,
-            FirstName: user.FirstName,
-            LastName: user.LastName,
-            Username: user.Username,
-            Email: user.Email,
-            CreatedAt: user.CreatedAt,
-            LastLogin: user.LastLogin,
-          }));
-          setUserID(newUserID);
-
+        const responseData = await response.json();
+        const dataFromBody = responseData.body; // Extract the body directly
+  
+        // Check if the body is already parsed JSON
+        const updatedUsers = typeof dataFromBody === 'string' ? JSON.parse(dataFromBody) : dataFromBody;
+  
+        console.log('API data:', updatedUsers);
+  
+        setUsers(updatedUsers); // Update users state with fetched data
       } else {
         console.error('Fetch request failed:', response.status);
       }
@@ -33,19 +29,21 @@ const ProfilePage = ({currentUserId}) => {
       console.error('Fetch error:', error);
     }
   };
-
+  
 
   return (
     <div className="ProfilePage">
       <h1>Profile</h1>
       <h1>Database Connection Test:</h1>
       <div>
-        {userID.map((user, index) => (
-          <Profile users={user} key={index} />
+        {users.map((user, index) => (
+          <Profile userData={user} key={index} />
+          // Assuming `Profile` component accepts `userData` prop
         ))}
       </div>
     </div>
   );
+  
 };
 
 export default ProfilePage;
