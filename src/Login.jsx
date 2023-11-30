@@ -21,23 +21,19 @@ const Login = () => {
       Password: password
     };
   
-    const body = {
-      body: JSON.stringify(data)
-    };
-  
     try {
-      const response = await fetch('https://55270xq6xa.execute-api.us-east-2.amazonaws.com/create_user/', {
+      const response = await fetch('https://55270xq6xa.execute-api.us-east-2.amazonaws.com/create_user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        "body": JSON.stringify(body)
+        body: "body:" + JSON.stringify(data)
       });
   
       if (response.ok) {
         const responseData = await response.json();
         console.log('User created successfully:', responseData);
-        console.log(body);
+        console.log(JSON.stringify(data))
         // Handle the successful response here
       } else {
         console.error('Failed to create user:', response.status);
