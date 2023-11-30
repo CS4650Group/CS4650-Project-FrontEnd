@@ -26,7 +26,7 @@ const Login = () => {
     };
   
     try {
-      const response = await fetch('https://55270xq6xa.execute-api.us-east-2.amazonaws.com/create_user', {
+      const response = await fetch('https://55270xq6xa.execute-api.us-east-2.amazonaws.com/create_user/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
