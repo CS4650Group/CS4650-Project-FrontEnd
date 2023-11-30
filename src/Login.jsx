@@ -12,6 +12,43 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const CreateUserApi = async () => {
+    const data = {
+      FirstName: firstName,
+      LastName: lastName,
+      Username: username,
+      Email: email,
+      Password: password
+    };
+  
+    const body = {
+      body: JSON.stringify(data)
+    };
+  
+    try {
+      const response = await fetch('https://55270xq6xa.execute-api.us-east-2.amazonaws.com/create_user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        "body": JSON.stringify(body)
+      });
+  
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('User created successfully:', responseData);
+        console.log(body);
+        // Handle the successful response here
+      } else {
+        console.error('Failed to create user:', response.status);
+        // Handle the error here
+      }
+    } catch (error) {
+      console.error('Error creating user:', error);
+      // Handle any network or other errors here
+    }
+  };
+
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
   };
@@ -40,7 +77,7 @@ const Login = () => {
 
   const navigateToHomepage = () => {
     if (isFormFilled) {
-      
+      CreateUserApi();
       console.log('Navigating to homepage...');
     }
   };
@@ -113,9 +150,9 @@ const Login = () => {
           className={action === 'Login' ? 'submit gray' : 'submit'}
           onClick={() => {
             if (action === 'Login') {
-              navigateToHomepage();
-            } else {
               setAction('Sign Up');
+            } else {
+              navigateToHomepage();
             }
           }}
         >
@@ -125,9 +162,9 @@ const Login = () => {
           className={action === 'Sign Up' ? 'submit gray' : 'submit'}
           onClick={() => {
             if (action === 'Sign Up') {
-              navigateToHomepage();
-            } else {
               setAction('Login');
+            } else {
+              navigateToHomepage();
             }
           }}
         >
