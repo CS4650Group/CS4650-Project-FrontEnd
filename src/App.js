@@ -13,7 +13,7 @@ const App = () => {
 
 
   useEffect(() => {
-    setPageId(20);
+    setPageId(11);
     setUserId(0);
   }, []);
   
@@ -22,11 +22,11 @@ const App = () => {
   <div className="App">
     <div className='select'>
       <Link to="/">Home</Link>
-      <h1> </h1> 
+
       <Link to="/login">Login</Link>
-      <h1> </h1>
+  
       <Link to="/post">BlogPage</Link>
-      <h1> </h1>
+
       <Link to="/profile">Profile</Link>
     </div>
 

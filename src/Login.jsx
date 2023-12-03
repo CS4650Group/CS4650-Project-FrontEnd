@@ -33,7 +33,7 @@ const Login = () => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('User created successfully:', responseData);
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         // Handle the successful response here
       } else {
         console.error('Failed to create user:', response.status);
@@ -79,6 +79,9 @@ const Login = () => {
   };
 
   return (
+  <div>
+    <div className='homepage'> <h3>CloudScape</h3> </div>
+    
     <div className='container'>
       <div className='header'>
         <div className='text'>{action}</div>
@@ -119,16 +122,18 @@ const Login = () => {
             onChange={handleUsernameChange}
           />
         </div>
-
-        <div className='input'>
-          <img src={email_icon} alt='' />
-          <input
-            type='email'
-            placeholder='Email Address'
-            value={email}
-            onChange={handleEmailChange}
-          />
-        </div>
+          {action === 'Login' ? null: (
+          <div className='input'>
+            <img src={email_icon} alt='' />
+            <input
+              type='email'
+              placeholder='Email Address'
+              value={email}
+              onChange={handleEmailChange}
+            />
+          </div>
+          )}
+        
 
         <div className='input'>
           <img src={password_icon} alt='' />
@@ -168,6 +173,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

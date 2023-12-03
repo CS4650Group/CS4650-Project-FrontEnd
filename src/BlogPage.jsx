@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Blog.css';
 
 const BlogPage = ({ pageID }) => {
-  const [blogPosts, setBlogPosts] = useState([]);
+  const [blogPost, setBlogPost] = useState(null); // State for the single blog post
 
   useEffect(() => {
     const getApi = async () => {
@@ -12,28 +12,40 @@ const BlogPage = ({ pageID }) => {
 
         // Parse the JSON string inside the "body" property
         const parsedData = JSON.parse(responseData.body);
-        setBlogPosts(parsedData); // Set the fetched blog posts to state
+
+        // Find the blog post that matches the pageID
+        const selectedPost = parsedData.find(post => post.PostID === pageID);
+
+        if (selectedPost) {
+          setBlogPost(selectedPost); // Set the found blog post to state
+        } else {
+          console.error('Blog post not found for pageID:', pageID);
+        }
       } catch (error) {
         console.error('Error fetching blog data:', error);
       }
     };
 
     getApi(); // Call the API on component mount
-  }, []);
+  }, [pageID]);
 
   return (
-    <div className="Page">
-      <h1>Blog Title</h1>
-      <h1>Blog Id: {pageID}</h1>
-      <div>
-        {blogPosts.map((post) => (
-          <div key={post.PostID}>
-            <h2>Title: {post.Title}   AuthorID: {post.AuthorID}</h2>
-            <p>Content: {post.Content}</p>
-            
-            {/* Display other relevant information */}
+    <div>
+      <div className="homepage">
+        <h3>CloudScape</h3>
+      </div>
+      <div className="page">
+        {blogPost ? (
+          <div key={blogPost.PostID}>
+            <div>
+              <h1>{blogPost.Title}</h1>
+              <h2>Post by @Author</h2>
+              <p>{blogPost.Content}</p>
+            </div>
           </div>
-        ))}
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </div>
   );

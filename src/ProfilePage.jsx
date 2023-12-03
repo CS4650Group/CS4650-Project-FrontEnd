@@ -32,16 +32,18 @@ const ProfilePage = () => {
   
 
   return (
+  <div>
+      <div className='homepage'> <h3>CloudScape</h3> </div>
     <div className="ProfilePage">
       <h1>Profile</h1>
       <h1>Database Connection Test:</h1>
       <div>
         {users.map((user, index) => (
           <Profile userData={user} key={index} />
-          // Assuming `Profile` component accepts `userData` prop
         ))}
       </div>
     </div>
+  </div>
   );
   
 };

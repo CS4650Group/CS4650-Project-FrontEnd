@@ -1,16 +1,13 @@
 import React from 'react';
 import "./Blog.css"
-const BlogInstance = () => {
+
+const BlogInstance = (blogpost) => {
     return(
-        <div  className="Instance">
-            <h1>"Blog Name"</h1>
-            <h2>"User"</h2>
-            <h3>"Post"</h3>
+        <div  className="post">
+            <h1>{blogpost.Title}</h1>
+            <h2>Posted by @Author</h2>
+            <p>{blogpost.Content}</p>
         </div>
-
-
-
-
     );
 
 };
