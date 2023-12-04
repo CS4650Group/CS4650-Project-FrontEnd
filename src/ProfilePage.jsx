@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Profile from './Profile';
 
-const ProfilePage = () => {
+const ProfilePage = ( {currentUserId} ) => {
   const [users, setUsers] = useState([]); // Initialize users state
+  const [targetUserId, setTargetId] = useState([]); // Replace 'desired_user_id' with the actual ID you want to display
 
   useEffect(() => {
+    setTargetId(currentUserId);
     getApi();
-  }, []);
+  }, [currentUserId]);
 
   const getApi = async () => {
     try {
@@ -30,22 +32,21 @@ const ProfilePage = () => {
     }
   };
   
+  const filteredUser = users.filter(user => user.UserID === targetUserId);
 
   return (
-  <div>
+    <div>
       <div className='homepage'> <h3>CloudScape</h3> </div>
-    <div className="ProfilePage">
-      <h1>Profile</h1>
-      <h1>Database Connection Test:</h1>
-      <div>
-        {users.map((user, index) => (
-          <Profile userData={user} key={index} />
-        ))}
+      <div className="ProfilePage">
+        <h1>Profile {currentUserId}</h1>
+        <div>
+          {filteredUser.map((user, index) => (
+            <Profile userData={user} key={index} />
+          ))}
+        </div>
       </div>
     </div>
-  </div>
   );
-  
 };
 
 export default ProfilePage;

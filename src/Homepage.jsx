@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import BlogInstance from './BlogInstance'; // Import the BlogInstance component
 
-const Homepage = () => {
-  const [userID, setUserID] = useState([]);
+const Homepage = ( {currentUserId} ) => {
   const [blogPosts, setBlogPosts] = useState([]);
 
   useEffect(() => {
-    setUserID(1);
     getApi(); 
   }, []);
 
@@ -29,7 +27,7 @@ const Homepage = () => {
 
   return (
     <div className="homepage">
-      <h3>CloudScape {userID}</h3>
+      <h3>CloudScape {currentUserId}</h3>
       <div>
         {/* Use BlogInstance component for each blog post */}
         {sortedBlogPosts.map((post) => (

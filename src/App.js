@@ -9,12 +9,11 @@ import "./App.css";
 
 const App = () => {
   const [PageId, setPageId] = useState([]);
-  const [UserId, setUserId] = useState([]);
+  const [UserId, setUserId] = useState([null]);
 
 
   useEffect(() => {
     setPageId(11);
-    setUserId(0);
   }, []);
   
   return (
@@ -34,8 +33,8 @@ const App = () => {
 
 
     <Routes>
-      <Route exact path="/" element={<Homepage />} />
-      <Route path="/login" element={<Login />} />
+      <Route exact path="/" element={<Homepage currentUserId={UserId} />} />
+      <Route path="/login" element={<Login setUserId={setUserId}/>} />
       <Route path="/post" element={<BlogPage pageID={PageId} />} />
       <Route path="/profile" element={<ProfilePage currentUserId={UserId} />} />
     </Routes>

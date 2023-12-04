@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import './Login.css';
-
+import { useNavigate } from 'react-router-dom';
 import user_icon from './person.png';
 import email_icon from './email.png';
 import password_icon from './password.png';
 
-const Login = () => {
+const Login = ({setUserId}) => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [users, setUsers] = useState([]);
   const CreateUserApi = async () => {
     const data = {
       FirstName: firstName,
@@ -44,6 +45,27 @@ const Login = () => {
       // Handle any network or other errors here
     }
   };
+
+  const getUsers = async () => {
+    try {
+      const response = await fetch('https://0cuq5fy7wl.execute-api.us-east-2.amazonaws.com/dev');
+      if (response.ok) {
+        const responseData = await response.json();
+        const dataFromBody = responseData.body; // Extract the body directly
+  
+        // Check if the body is already parsed JSON
+        const updatedUsers = typeof dataFromBody === 'string' ? JSON.parse(dataFromBody) : dataFromBody;
+  
+        console.log('API data:', updatedUsers);
+  
+        setUsers(updatedUsers); // Update users state with fetched data
+      } else {
+        console.error('Fetch request failed:', response.status);
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
+  };
   
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -69,14 +91,32 @@ const Login = () => {
 
   const isFormFilled =
     (action === 'Sign Up' && firstName && lastName && username && email && password) ||
-    (action === 'Login' && email && password);
+    (action === 'Login' && username && password);
 
-  const navigateToHomepage = () => {
-    if (isFormFilled) {
-      CreateUserApi();
-      console.log('Navigating to homepage...');
-    }
-  };
+    const navigateToHomepage = () => {
+      if (isFormFilled) {
+        CreateUserApi();
+        navigateToHomepageLogin();
+      }
+    };
+
+    const navigateToHomepageLogin = async () => {
+      if (isFormFilled) {
+          getUsers();
+            const filteredUser = users.find(
+              user => user.Username === username && user.PasswordHash === password
+            );
+            if (filteredUser) {
+              const userId = filteredUser.UserID; // Assuming UserID is the property for user ID
+              setUserId(userId);
+              console.log('User:', {users})
+              console.log('Navigating to homepage...');
+              navigate('/');
+          }
+        }else{
+          console.log("Form is not filled")
+        }
+      };
 
   return (
   <div>
@@ -154,6 +194,7 @@ const Login = () => {
               setAction('Sign Up');
             } else {
               navigateToHomepage();
+
             }
           }}
         >
@@ -165,7 +206,8 @@ const Login = () => {
             if (action === 'Sign Up') {
               setAction('Login');
             } else {
-              navigateToHomepage();
+              console.log("work");
+              navigateToHomepageLogin();
             }
           }}
         >
