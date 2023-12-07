@@ -69,6 +69,12 @@ h3{
   
   .page h2 {
     font-size: 22px;
+    margin-bottom: 5px;
+    color: #939393;
+    text-align: left;
+  }
+  .page h3 {
+    font-size: 22px;
     margin-bottom: 50px;
     color: #939393;
     text-align: left;
