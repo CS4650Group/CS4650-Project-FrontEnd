@@ -5,16 +5,14 @@
   margin: 0;
   border: 0;
   box-sizing: border-box;
-  color: white; /* Set default font color to white */
+  color: white;
 }
 
 body {
   font-family: var(--font-roboto);
   margin: 0;
   padding: 0;
-  /* Fallback for older browsers */
-  background-color: #030303; /* Fallback color if gradients are not supported */
-  /* Gradient code for modern browsers */
+  background-color: #030303;
   background-image: linear-gradient(to right, #16181c 0%, #17191d 100%);
 }
 :root {
@@ -159,10 +157,10 @@ h1 {
 
 .select {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  background-color: #333; /* Change the background color */
-  padding: 20px; /* Add padding */
+  background-color: #333; 
+  padding: 25px;
 }
 
 .select a {
@@ -172,13 +170,26 @@ h1 {
   font-weight: bold;
   padding: 8px 12px;
   border-radius: 5px;
-  transition: background-color 0.3s ease; /* Add smooth transition */
+  transition: background-color 0.3s ease;
 }
 
 .select a:hover {
-  background-color: #555; /* Change color on hover */
+  background-color: #555;
+}
+.select span {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
+.select span:hover {
+  background-color: #555; 
+  cursor: pointer;
+}
 .post {
   display: flex;
   margin-bottom: 20px;
@@ -196,7 +207,7 @@ h1 {
 }
 
 .post-image img {
-  width: 250px; /* Adjust the width as needed */
+  width: 250px; 
   height: auto;
   border-radius: 4px;
 }
@@ -204,3 +215,59 @@ h1 {
 .post-info {
   flex: 1;
 }
+
+.CreatePost {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #4e4e4e;
+  border-radius: 8px;
+  background-color: #1a1a1b;
+}
+
+.CreatePost h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.CreatePost label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.CreatePost input[type="text"],
+.CreatePost textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #4e4e4e;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #eaeaea;
+  color: #797979;
+}
+
+.CreatePost textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+.CreatePost button {
+  padding: 10px 20px;
+  background-color: #2a6ac9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.CreatePost button:hover {
+  background-color: #417cd6;
+}
+.CreatePost button[disabled] {
+  opacity: 0.6; 
+  cursor: not-allowed;
+}
+
+

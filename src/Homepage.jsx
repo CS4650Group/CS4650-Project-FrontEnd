@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import { Link } from 'react-router-dom';
 
-const Homepage = ({ currentUserId }) => {
+const Homepage = ({ currentUserId, setPageId }) => {
   const [blogPosts, setBlogPosts] = useState([]);
   const [userList, setUserList] = useState([]);
 
@@ -26,16 +27,23 @@ const Homepage = ({ currentUserId }) => {
   const getUserByID = async () => {
     try {
       const userResponse = await fetch('https://emz7g9mmjj.execute-api.us-east-2.amazonaws.com/get_username');
+      if (!userResponse.ok) {
+        throw new Error('Failed to fetch user data');
+      }
+  
       const userResponseData = await userResponse.json();
-
-      // Parse the JSON string inside the "body" property to an array of objects
       const parsedUserData = JSON.parse(userResponseData.body);
-      console.log(parsedUserData);
-      setUserList(parsedUserData); // Set the fetched user list to state
+  
+      if (Array.isArray(parsedUserData)) {
+        setUserList(parsedUserData);
+      } else {
+        console.error('User data is not in the expected format');
+      }
     } catch (error) {
       console.error('Error fetching user list', error);
     }
   };
+  
 
   // Sort blogPosts based on PostID in descending order
   const sortedBlogPosts = [...blogPosts].sort((a, b) => b.PostID - a.PostID);
@@ -56,7 +64,8 @@ const Homepage = ({ currentUserId }) => {
       <h3>CloudScape {currentUserId}</h3>
       <div>
         {sortedBlogPosts.map((post) => (
-          <div key={post.PostID} className="post">
+        <Link to={`/post`} key={post.PostID}>
+          <div key={post.PostID} className="post" onClick={() => setPageId(post.PostID)}>
             <div className="post-content">
               <div className="post-image">
                 <img src={post.FeaturedImageURL} alt={""} />
@@ -69,6 +78,7 @@ const Homepage = ({ currentUserId }) => {
               </div>
             </div>
           </div>
+        </Link>
         ))}
       </div>
     </div>

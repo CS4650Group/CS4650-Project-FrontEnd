@@ -38,7 +38,6 @@ const BlogPage = ({ pageID }) => {
 
       // Parse the JSON string inside the "body" property to an array of objects
       const parsedUserData = JSON.parse(userResponseData.body);
-      console.log(parsedUserData);
       setUserList(parsedUserData); // Set the fetched user list to state
     } catch (error) {
       console.error('Error fetching user list', error);
