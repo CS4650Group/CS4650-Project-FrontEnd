@@ -178,3 +178,29 @@ h1 {
 .select a:hover {
   background-color: #555; /* Change color on hover */
 }
+
+.post {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.post-content {
+  display: flex;
+  flex: 1;
+}
+
+.post-image {
+  margin-right: 20px;
+}
+
+.post-image img {
+  width: 250px; /* Adjust the width as needed */
+  height: auto;
+  border-radius: 4px;
+}
+
+.post-info {
+  flex: 1;
+}

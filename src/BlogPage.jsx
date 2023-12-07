@@ -41,6 +41,7 @@ const BlogPage = ({ pageID }) => {
               <h1>{blogPost.Title}</h1>
               <h2>Post by @Author</h2>
               <p>{blogPost.Content}</p>
+              <img src={blogPost.FeaturedImageURL} />
             </div>
           </div>
         ) : (

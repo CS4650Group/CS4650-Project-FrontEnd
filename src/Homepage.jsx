@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import BlogInstance from './BlogInstance'; // Import the BlogInstance component
+import BlogInstance from './BlogInstance';
 
-const Homepage = ( {currentUserId} ) => {
+const Homepage = ({ currentUserId }) => {
   const [blogPosts, setBlogPosts] = useState([]);
 
   useEffect(() => {
@@ -27,18 +27,22 @@ const Homepage = ( {currentUserId} ) => {
 
   return (
     <div className="homepage">
-      <h1 style={{ fontSize: '48px', marginBottom: '20px', color: '#333' }}>
-        CloudScape {currentUserId}
-      </h1>
-      <div className="blog-posts">
+      <h3>CloudScape {currentUserId}</h3>
+      <div>
         {sortedBlogPosts.map((post) => (
-          <BlogInstance
-            key={post.PostID}
-            PostID={post.PostID}
-            Title={post.Title}
-            AuthorID={post.AuthorID}
-            Content={post.Content}
-          />
+          <div key={post.PostID} className="post">
+            <div className="post-content">
+              <div className="post-image">
+                <img src={post.FeaturedImageURL} alt={`Image for ${post.Title}`} />
+              </div>
+              <div className="post-info">
+                <h1>{post.Title}</h1>
+                <h2>Posted by @{post.AuthorID}</h2>
+                <h2>Date: {post.CreatedAt}</h2>
+                <p>{post.Content}</p>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </div>
