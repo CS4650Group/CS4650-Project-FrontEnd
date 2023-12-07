@@ -27,9 +27,10 @@ const Homepage = ( {currentUserId} ) => {
 
   return (
     <div className="homepage">
-      <h3>CloudScape {currentUserId}</h3>
-      <div>
-        {/* Use BlogInstance component for each blog post */}
+      <h1 style={{ fontSize: '48px', marginBottom: '20px', color: '#333' }}>
+        CloudScape {currentUserId}
+      </h1>
+      <div className="blog-posts">
         {sortedBlogPosts.map((post) => (
           <BlogInstance
             key={post.PostID}
