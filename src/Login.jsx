@@ -43,6 +43,8 @@ const Login = ({setUserId}) => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('User created successfully:', responseData);
+        setErrorMessage(null); // Clear any error message
+        navigate('/'); // Navigate to the homepage after successful user creation
       } else {
         console.error('Failed to create user:', response.status);
         setErrorMessage("Failed to create user");
@@ -99,23 +101,6 @@ const Login = ({setUserId}) => {
     (action === 'Sign Up' && firstName && lastName && username && email && password) ||
     (action === 'Login' && username && password);
 
-    const navigateToHomepage = () => {
-      if (isFormFilled) {
-        CreateUserApi();
-        setErrorMessage("Processing Request. . .");
-        getUsers();
-        setTimeout(() => {
-          
-          const filteredUser = users.find(
-            user => user.Username === username && user.PasswordHash === password
-          );
-          const userId = filteredUser.UserID;
-          setUserId(userId);
-          setErrorMessage(null);
-          navigate('/');
-        }, 2000);
-      }
-    };
 
     const navigateToHomepageLogin = async () => {
       if (isFormFilled) {
@@ -211,7 +196,7 @@ const Login = ({setUserId}) => {
             if (action === 'Login') {
               setAction('Sign Up');
             } else {
-              navigateToHomepage();
+              CreateUserApi();
 
             }
           }}
