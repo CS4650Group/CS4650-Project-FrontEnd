@@ -36,9 +36,8 @@ const ProfilePage = ( {currentUserId} ) => {
 
   return (
     <div>
-      <div className='homepage'> <h3>CloudScape</h3> </div>
       <div className="ProfilePage">
-        <h1>Profile {currentUserId}</h1>
+        <h1>Profile</h1>
         <div>
           {filteredUser.map((user, index) => (
             <Profile userData={user} key={index} />

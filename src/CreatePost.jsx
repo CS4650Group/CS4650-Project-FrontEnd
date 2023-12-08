@@ -59,9 +59,6 @@ const CreatePost = ({ currentUserId }) => {
 
   return (
     <div>
-      <div className='homepage'>
-        <h3>CloudScape</h3>
-      </div>
       <div className="CreatePost">
         <h1>Create Post</h1>
         <div>

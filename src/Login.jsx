@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 import user_icon from './person.png';
@@ -13,7 +13,15 @@ const Login = ({setUserId}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [users, setUsers] = useState([]);
+  const [errorMessage, setErrorMessage] = useState([null]);
   
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+
+
+
   const CreateUserApi = async () => {
     const data = {
       FirstName: firstName,
@@ -35,15 +43,12 @@ const Login = ({setUserId}) => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('User created successfully:', responseData);
-        // console.log(JSON.stringify(data));
-        // Handle the successful response here
       } else {
         console.error('Failed to create user:', response.status);
-        // Handle the error here
+        setErrorMessage("Failed to create user");
       }
     } catch (error) {
       console.error('Error creating user:', error);
-      // Handle any network or other errors here
     }
   };
 
@@ -97,32 +102,44 @@ const Login = ({setUserId}) => {
     const navigateToHomepage = () => {
       if (isFormFilled) {
         CreateUserApi();
-        navigateToHomepageLogin();
+        setErrorMessage("Processing Request. . .");
+        getUsers();
+        setTimeout(() => {
+          
+          const filteredUser = users.find(
+            user => user.Username === username && user.PasswordHash === password
+          );
+          const userId = filteredUser.UserID;
+          setUserId(userId);
+          setErrorMessage(null);
+          navigate('/');
+        }, 2000);
       }
     };
 
     const navigateToHomepageLogin = async () => {
       if (isFormFilled) {
-          getUsers();
             const filteredUser = users.find(
               user => user.Username === username && user.PasswordHash === password
             );
             if (filteredUser) {
-              const userId = filteredUser.UserID; // Assuming UserID is the property for user ID
+              const userId = filteredUser.UserID;
               setUserId(userId);
               console.log('User:', {users})
               console.log('Navigating to homepage...');
+              setErrorMessage(null);
               navigate('/');
+          }else{
+            setErrorMessage("Username or password is incorrect");
           }
         }else{
           console.log("Form is not filled")
+          setErrorMessage("Please fill out all fields");
         }
       };
 
   return (
   <div>
-    <div className='homepage'> <h3>CloudScape</h3> </div>
-    
     <div className='container'>
       <div className='header'>
         <div className='text'>{action}</div>
@@ -214,6 +231,9 @@ const Login = ({setUserId}) => {
         >
           Login
         </div>
+      </div>
+      <div className="error-message">
+        {errorMessage && <p>{errorMessage}</p>}
       </div>
     </div>
   </div>

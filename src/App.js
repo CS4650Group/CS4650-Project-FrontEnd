@@ -8,16 +8,17 @@ import CreatePost from './CreatePost';
 import './App.css';
 
 const App = () => {
-  const [PageId, setPageId] = useState(11);
-  const [UserId, setUserId] = useState(null);
+  const [pageId, setPageId] = useState(11);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     // Your initialization logic, if any
   }, []);
 
   const handleLogout = () => {
-    setPageId(null)
+    setPageId(null);
     setUserId(null);
+    window.location.href = '/'; // Redirect to the homepage after logout
   };
 
   return (
@@ -25,9 +26,8 @@ const App = () => {
       <div className="App">
         <div className='select'>
           <Link to="/">Home</Link>
-          {UserId ? (
+          {userId ? (
             <>
-              <Link to="/post">BlogPage</Link>
               <Link to="/profile">Profile</Link>
               <Link to="/create">Create</Link>
               <span onClick={handleLogout}>Logout</span>
@@ -38,12 +38,11 @@ const App = () => {
         </div>
 
         <Routes>
-
-          <Route exact path="/" element={<Homepage currentUserId={UserId} setPageId={setPageId}/>} />
-          <Route path="/login" element={<Login setUserId={setUserId}/>} />
-          <Route path="/post" element={<BlogPage pageID={PageId} />} />
-          <Route path="/profile" element={<ProfilePage currentUserId={UserId} />} />
-          <Route path="/create" element={<CreatePost currentUserId={UserId} />} />
+          <Route exact path="/" element={<Homepage currentUserId={userId} setPageId={setPageId} />} />
+          <Route path="/login" element={<Login setUserId={setUserId} />} />
+          <Route path="/post" element={<BlogPage pageID={pageId} />} />
+          <Route path="/profile" element={<ProfilePage currentUserId={userId} />} />
+          <Route path="/create" element={<CreatePost currentUserId={userId} />} />
         </Routes>
       </div>
     </Router>

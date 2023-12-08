@@ -57,9 +57,6 @@ const BlogPage = ({ pageID }) => {
 
   return (
     <div>
-      <div className="homepage">
-        <h3>CloudScape</h3>
-      </div>
       <div className="page">
         {blogPost ? (
           <div key={blogPost.PostID}>

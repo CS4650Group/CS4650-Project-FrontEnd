@@ -61,11 +61,16 @@ const Homepage = ({ currentUserId, setPageId }) => {
 
   return (
     <div className="homepage">
-      <h3>CloudScape {currentUserId}</h3>
-      <div>
-        {sortedBlogPosts.map((post) => (
-        <Link to={`/post`} key={post.PostID}>
-          <div key={post.PostID} className="post" onClick={() => setPageId(post.PostID)}>
+      <div className="header">
+        <div>
+          <Link to="/" className="homepage-link">
+            <h3 className="homepage-title">CloudScape</h3>
+          </Link>
+        </div>
+      </div>
+      {sortedBlogPosts.map((post) => (
+        <div key={post.PostID} className="post" onClick={() => setPageId(post.PostID)}>
+          <Link to={`/post`} className="post-link" key={post.PostID}>
             <div className="post-content">
               <div className="post-image">
                 <img src={post.FeaturedImageURL} alt={""} />
@@ -73,16 +78,16 @@ const Homepage = ({ currentUserId, setPageId }) => {
               <div className="post-info">
                 <h1>{post.Title}</h1>
                 <h2>Posted by @{getUsernameById(post.AuthorID)}</h2>
-                <h2>Date: {formatDate(post.CreatedAt)}</h2>
+                <h2>{formatDate(post.CreatedAt)}</h2>
                 <p>{post.Content}</p>
               </div>
             </div>
-          </div>
-        </Link>
-        ))}
-      </div>
+          </Link>
+        </div>
+      ))}
     </div>
   );
 };
+
 
 export default Homepage;
